@@ -6,12 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:52:19 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/14 10:19:35 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:47:34 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 int	ft_atoi(char *str)
 {
@@ -65,4 +64,10 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+int	print_error(char *msg)
+{
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
