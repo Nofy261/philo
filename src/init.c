@@ -7,6 +7,7 @@ void init_data(t_data *data, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->start_time = get_actual_time_in_ms();
 	if (argv[5])
 		data->nb_eat = ft_atoi(argv[5]);
 	else
@@ -25,7 +26,7 @@ void init_philo(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		philo->last_meal = 0;
+		philo->last_time_eaten = 0;
 		philo->id = i + 1;
 		philo->dead = 0;
 		philo->finished = 0;
@@ -47,7 +48,8 @@ void init_philo(t_data *data, t_philo *philo)
 	}
 }
 
-int	create(t_data *data, t_philo *philo)
+// a appeler dans le main apres initialisation
+int	create_threads(t_data *data, t_philo *philo)
 {
 	int i;
 

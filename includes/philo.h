@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/16 13:40:09 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/17 13:17:21 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
+	long int			start_time;
 	pthread_mutex_t		print;
 	t_philo 			*philo;
 }		t_data;
@@ -35,7 +36,8 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int					last_meal;
+	long int			last_time_eaten;// heure du dernier repas
+	int					meal_numbers_taken;//
 	int					id;
 	int					dead;
 	int					finished;
@@ -64,6 +66,9 @@ int 	check_number_of_philo(char *str);
 int 	parse_args(char **argv);
 
 
+// TIME.C
+long int	get_actual_time_in_ms(void);
+long int get_timestamp(t_data *data);
 
 
 
