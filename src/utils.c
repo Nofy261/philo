@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:52:19 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/16 10:47:34 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:57:24 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,16 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void	ft_putstr_fd(char *str, int fd)
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+static void	ft_putstr_fd(char *str, int fd)
 {
 	int	i;
 
@@ -54,16 +63,6 @@ void	ft_putstr_fd(char *str, int fd)
 		write(fd, &str[i], 1);
 		i++;
 	}
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 int	print_error(char *msg)

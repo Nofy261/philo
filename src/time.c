@@ -6,13 +6,14 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:30:05 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/17 12:46:33 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:02:08 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // time.c
+// start_time = moment où le programme a démarré. // a initialiser 
 // get_actual_time() permet de récupérer le temps actuel en millisecondes.
 long int	get_actual_time_in_ms(void)
 {
@@ -45,6 +46,6 @@ int	ft_usleep(size_t milliseconds)
 
 	start = get_actual_time_in_ms();// debut du moment ou le philo commence a manger
 	while ((get_actual_time_in_ms() - start) < milliseconds)
-		usleep(500);
+		usleep(500); // 100?
 	return (0);
 }

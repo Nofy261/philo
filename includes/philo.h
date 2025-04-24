@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/17 13:17:21 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:22:29 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <string.h>
+# include <string.h> // ??
 # include <sys/time.h>
 
 
@@ -28,16 +28,17 @@ typedef struct s_data
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
+	int					someone_died; // a initialiser
 	long int			start_time;
 	pthread_mutex_t		print;
-	t_philo 			*philo;
+	pthread_mutex_t		death;// a initialiser
+	//t_philo 			*philo;
 }		t_data;
-
 
 typedef struct s_philo
 {
 	long int			last_time_eaten;// heure du dernier repas
-	int					meal_numbers_taken;//
+	int					meal_consumed;// non initialisé;
 	int					id;
 	int					dead;
 	int					finished;
@@ -48,27 +49,58 @@ typedef struct s_philo
 }		t_philo;
 
 
-// UTILS
-int		ft_atoi(char *str);
-int		ft_isdigit(int c);
-void	ft_putstr_fd(char *str, int fd);
-size_t	ft_strlen(const char *s);
 
-// INITS.C
+// CHECKING.C
+int		check_death(t_philo *philo);
+int		simulation(t_data *data);
+
+
+// EAT.C
+void	eat(t_philo *philo);
+
+
+// INIT.C
 void 	init_data(t_data *data, char **argv);
 void 	init_philo(t_data *data, t_philo *philo);
+int		create_threads(t_data *data, t_philo *philo);
+
 
 // PARSING_UTILS
 int		check_number_of_args(int argc);
 int 	check_number_of_philo(char *str);
 
+
 // PARSING.C
 int 	parse_args(char **argv);
 
 
+// ROUTINE_UTILS.C
+void print_info(t_philo *philo, char *msg);
+
+
+// ROUTINE.C
+void	routine(t_philo *philo);
+
+
 // TIME.C
 long int	get_actual_time_in_ms(void);
-long int get_timestamp(t_data *data);
+long int	get_timestamp(t_data *data);
+int			ft_usleep(size_t milliseconds);
+
+
+// UTILS.C
+int		ft_atoi(char *str);
+int		ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+int		print_error(char *msg);
+
+
+
+
+
+
+
+
 
 
 
