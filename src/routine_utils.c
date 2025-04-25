@@ -6,11 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/23 12:51:24 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:17:39 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void print_info(t_philo *philo, char *msg)
 {

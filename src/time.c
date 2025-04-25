@@ -6,13 +6,12 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:30:05 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/24 15:02:08 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:17:56 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-// time.c
 // start_time = moment où le programme a démarré. // a initialiser 
 // get_actual_time() permet de récupérer le temps actuel en millisecondes.
 long int	get_actual_time_in_ms(void)

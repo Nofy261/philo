@@ -6,11 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:47:32 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/24 16:14:48 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:57:54 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static int	is_zero(char *str)
 {
@@ -98,8 +98,7 @@ int	parse_args(char **argv)
 
 	i = 1;
 	argc = 0;
-	if (check_number_of_args(argc) == -1 || check_number_of_philo(argv[1]) ==
-		-1)
+	if (check_number_of_philo(argv[1]) == -1)
 		return (1);
 	while (argv[i])
 	{

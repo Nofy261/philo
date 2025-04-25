@@ -6,11 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:52:19 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/24 16:57:24 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:34:29 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_atoi(char *str)
 {
@@ -21,6 +21,8 @@ int	ft_atoi(char *str)
 	i = 0;
 	counter = 1;
 	stock = 0;
+	if (!str)
+		return (1);
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	while (str[i] == '-' || str[i] == '+')
@@ -53,7 +55,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-static void	ft_putstr_fd(char *str, int fd)
+void	ft_putstr_fd(char *str, int fd)
 {
 	int	i;
 
@@ -65,7 +67,7 @@ static void	ft_putstr_fd(char *str, int fd)
 	}
 }
 
-int	print_error(char *msg)
+void	print_error(char *msg)
 {
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);

@@ -6,11 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/23 12:47:26 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:17:00 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static void choose_fork_order(t_philo *philo, pthread_mutex_t **first_fork, pthread_mutex_t **second_fork)
 {

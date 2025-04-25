@@ -6,11 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/24 17:16:20 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:11:38 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 
 // a mettre dans fichier checking
@@ -25,11 +25,8 @@ int check_death(t_philo *philo) // a completer plus tard
 	{
 		philo->data->someone_died = 1;
 		
-		// pthread_mutex_lock(&philo->data->death); // a voir 
-		// philo->dead = 1;  // Marque le philosophe comme mort
-		// pthread_mutex_unlock(&philo->data->death);
-
-		philo->dead = 1;// a proteger avec un mutex ??
+		pthread_mutex_lock(&philo->data->death); // a voir 
+		philo->dead = 1;  // Marque le philosophe comme mort
 		print_info(philo, "died");
 		pthread_mutex_unlock(&philo->data->death);
 		return (-1);

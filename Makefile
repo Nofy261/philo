@@ -6,7 +6,7 @@
 #    By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 16:59:13 by nolecler          #+#    #+#              #
-#    Updated: 2025/04/24 17:21:25 by nolecler         ###   ########.fr        #
+#    Updated: 2025/04/25 09:31:36 by nolecler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = philo
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -I. -g 
+LDFLAGS = -lpthread
+
 
 FSRCS = src/checking.c \
 		src/eat.c \
@@ -25,13 +27,14 @@ FSRCS = src/checking.c \
 		src/routine.c \
 		src/time.c \
 		src/utils.c \
+		src/routine_utils.c \
 
 OFILES = $(FSRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OFILES)
-		$(ARRC) $(NAME) $(OFILES)
+	$(CC) $(CFLAGS) $(OFILES) -o $(NAME) $(LDFLAGS)
 
 clean :
 	rm -f $(OFILES)
