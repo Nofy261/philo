@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 10:41:22 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:17:59 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ struct s_data;
 typedef struct s_philo
 {
     long int            last_time_eaten;// heure du dernier repas
-    int                    meal_consumed;// non initialisé;
+    int                    meal_consumed;
     int                    id;
     int                    dead;
-    int                    finished;
+    int                    finished;// non utiliser
+	int                 has_thread; // a voir son utilité
     pthread_t            thread;// action de chaque philo
     pthread_mutex_t      fork_right;
     pthread_mutex_t      fork_left;

@@ -1,0 +1,48 @@
+Code de Philo
+
+Voici ce que tu dois vérifier dans le code :
+
+    Il doit y avoir un thread par philosophe.
+
+    Il doit y avoir une seule fourchette par philosophe.
+
+    Il doit y avoir un mutex par fourchette, utilisé pour :
+
+        Vérifier la valeur de la fourchette.
+
+        Et/ou modifier cette valeur.
+
+    L’affichage ne doit jamais être brouillé ou désordonné.
+
+    Vérifie comment la mort d’un philosophe est gérée, et s’il y a un mutex pour empêcher qu’un philosophe meure et commence à manger en même temps.
+
+🧪 Tests obligatoires à faire
+
+    ⚠️ Ne pas dépasser 200 philosophes
+    ⚠️ Ne pas utiliser time_to_die, time_to_eat, ou time_to_sleep en dessous de 60ms
+
+Voici les cas de test recommandés :
+
+    ./philo 1 800 200 200
+    ➜ Le philosophe ne doit pas manger et doit mourir.
+
+    ./philo 5 800 200 200
+    ➜ Personne ne doit mourir.
+
+    ./philo 5 800 200 200 7
+    ➜ Personne ne doit mourir, la simulation doit s’arrêter après que chaque philosophe ait mangé 7 fois.
+
+    ./philo 4 410 200 200
+    ➜ Personne ne doit mourir.
+
+    ./philo 4 310 200 100 
+    ➜ Un philosophe doit mourir.
+
+    Avec 2 philosophes, vérifie que les temps sont corrects :
+    ➜ Un décalage de plus de 10ms dans la mort est inacceptable.
+
+    Fais d’autres tests avec tes propres valeurs pour vérifier toutes les règles :
+
+        Est-ce que les philosophes meurent au bon moment ?
+
+        Est-ce qu’ils évitent de "voler" des fourchettes ?

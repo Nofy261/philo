@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:33:35 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 11:01:42 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:32:52 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@ int main(int argc, char **argv)
         free(data.philo);
         return (1);
     }
+    i = 0;
+	// while (i < data.nb_philo)// a voir
+    // {
+    //     pthread_join(data.philo[i].thread, NULL);
+    //     i++;
+    // }
     pthread_mutex_destroy(&data.print);
     pthread_mutex_destroy(&data.death);
-    i = 0;
+	i = 0;
     while (i < data.nb_philo)
     {
         pthread_mutex_destroy(&data.philo[i].fork_right);

@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 11:09:57 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:16:26 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i + 1;
 		philo[i].dead = 0;
 		philo[i].finished = 0;
+		philo[i].has_thread = 0;
 		philo[i].data = data;
 		// mutex unique pour chaque philo = fourchette de droite
 		if (pthread_mutex_init(&philo->fork_right, NULL) != 0)
@@ -42,6 +43,7 @@ void init_philo(t_data *data, t_philo *philo)
 		i++;
 	}
 }
+
 void init_data(t_data *data, char **argv)
 {
 	data->nb_philo = ft_atoi(argv[1]);
@@ -63,7 +65,6 @@ void init_data(t_data *data, char **argv)
 }
 
 
-// a appeler dans le main apres initialisation
 int	create_threads(t_data *data, t_philo *philo)
 {
 	int i;
@@ -71,27 +72,15 @@ int	create_threads(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nb_philo)
 	{
+		philo[i].has_thread = 0; // a voir son utilité ailleurs
 		// stock l'id du thread si OK et renvoie 0 et renvoie != 0 si KO
 		if (pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]) != 0)
 		{
 			print_error("Error: thread creation failed");
 			return (-1);
 		}
+		philo[i].has_thread = 1;
 		i++;
 	}
-	i = 0;
-	while(i < data->nb_philo)
-	{
-		// permet de signaler au programme ppal tel philo a terminer sa routine
-		// ensuite le programme peut se liberer proprement
-        if (pthread_join(philo[i].thread, NULL) != 0)
-		{
-			print_error("Error: thread join failed");
-			return (-1);
-		}
-		i++;
-    }
 	return (0);
 }
-
-// routine = manger , dormir , penser(check if_is_dead entre)
