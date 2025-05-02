@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 14:07:17 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/01 12:36:39 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int all_ate_enough(t_data *data)
             return (0);
         i++;
     }
-    return (1); // tous ont manger le nombre requis de repas
+    return (1); // tous ont mangé le nombre de repas requis 
 }
 
 
@@ -73,6 +73,7 @@ int simulation(t_data *data)
 			i++;
 		}
 		ft_usleep(1);//?? a tester avec plusieurs valeurs
+		//ft_usleep(3); // test
 	}
 	// a rajouter si nb_eat est atteint
 	// si tout le monde a mangé le nombre de repas requis  

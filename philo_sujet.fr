@@ -1,5 +1,11 @@
 Code de Philo
 
+./philo   1           800      200         200
+         Nbredephilo  t_die     t_eat      t_sleep
+
+// 123 1 has taken a fork : timestamp (en ld) - id du philo - message
+// le philo numero 1 a pris une fourchette 123ms apres le debut du programme.
+
 Voici ce que tu dois vérifier dans le code :
 
     Il doit y avoir un thread par philosophe.

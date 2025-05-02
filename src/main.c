@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:33:35 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 13:32:52 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:01:00 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 
 int main(int argc, char **argv)
 {
-    int        i;
-    t_data data;
+    int		i;
+    t_data	data;
     
     if (argc < 5 || argc > 6)
     {
         ft_putstr_fd("Number of arguments is invalid\n", 2);
         return (1);
     }
-    if (parse_args(argv) == 1)
+    if (parse_args(argv) == -1 || init_data(&data, argv) == -1)
         return (1);
-    init_data(&data, argv);
     if (create_threads(&data, data.philo) == -1)
     {
         if (data.philo)

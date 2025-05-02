@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 14:18:49 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:30:05 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	take_forks(t_philo *philo, pthread_mutex_t **first_fork,
 	return (0);
 }
 
-// 123 1 has taken a fork : timestamp (en ld) - id du philo - message
-// le philo numero 1 a pris une fourchette 123ms apres le debut du programme.
 
 void	eat(t_philo *philo)
 {

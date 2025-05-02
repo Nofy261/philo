@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:47:32 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 12:25:42 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:52:02 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static int	is_invalid_argument(char *arg)
 	return (0);
 }
 
-// a appeler dans le main
 int	parse_args(char **argv)
 {
 	int	i;
@@ -99,11 +98,11 @@ int	parse_args(char **argv)
 	i = 1;
 	argc = 0;
 	if (check_number_of_philo(argv[1]) == -1)
-		return (1);
+		return (-1);
 	while (argv[i])
 	{
 		if (is_invalid_argument(argv[i]) == -1)
-			return (1);
+			return (-1);
 		i++;
 	}
 	return (0);
