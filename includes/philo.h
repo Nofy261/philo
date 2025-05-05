@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/02 12:19:03 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:19:06 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ typedef struct s_philo
 	int 			finished;     // non utilisé
 	int 			has_thread;   // a voir son utilité
 	pthread_t 		thread; // action de chaque philo
-	pthread_mutex_t	fork_right;
-	pthread_mutex_t	fork_left;
+	pthread_mutex_t	*fork_left; // modif pointeur
+	pthread_mutex_t	*fork_right; // modif en pointeur
+	
 	struct s_data	*data;
 }					t_philo;
 
@@ -47,6 +48,7 @@ typedef struct s_data
 	long int		start_time;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
+	pthread_mutex_t	*forks;// ajout pointeur vers un tableau de mutex; 
 	t_philo 		*philo; //
 }					t_data;
 
@@ -59,7 +61,7 @@ void				eat(t_philo *philo);
 
 // INIT.C
 int					init_data(t_data *data, char **argv);
-int					init_philo(t_data *data, t_philo *philo);
+void 				init_philo(t_data *data, t_philo *philo);
 int					create_threads(t_data *data, t_philo *philo);
 
 // PARSING_UTILS

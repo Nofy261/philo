@@ -6,13 +6,13 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/02 13:50:03 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:53:16 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int init_philo(t_data *data, t_philo *philo)
+void init_philo(t_data *data, t_philo *philo)
 {
 	int i;
 
@@ -24,32 +24,19 @@ int init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i + 1;
 		philo[i].dead = 0;
 		philo[i].finished = 0;
-		philo[i].has_thread = 0;
+		philo[i].has_thread = 0;//
 		philo[i].data = data;
-		// mutex unique pour chaque philo = fourchette de droite
-		if (pthread_mutex_init(&philo[i].fork_right, NULL) != 0) // modif
-		//if (pthread_mutex_init(&philo->fork_right, NULL) != 0) // base
-		{
-			print_error("Error: thread mutex init failed");
-			while (--i >= 0) //modif
-				pthread_mutex_destroy(&philo[i].fork_right);
-			return (-1);
-		}
+		philo[i].fork_left = &data->forks[i];//fourchette du philo (la gauche)
+		philo[i].fork_right = &data->forks[(i + 1) % data->nb_philo];//fourchette droite de son voisin
 		i++;
-	}
-	// on relie la fourchette de droite a celle de gauche
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		//la fourchette gauche de chaque philo est reliée à la fourchette droite de son voisin à droite.
-		data->philo[i].fork_left = data->philo[(i + 1) % data->nb_philo].fork_right;
-		i++;
-	}
-	return (0);
+	}	
 }
 
+// free a verifier
 int	init_data(t_data *data, char **argv)
 {
+	int i;
+
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -64,14 +51,42 @@ int	init_data(t_data *data, char **argv)
 		return (-1);
 	if (pthread_mutex_init(&data->print, NULL) != 0)
 		return (-1); 
-	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
-	if (!data->philo)
-		return (-1);
-	if (init_philo(data, data->philo) == -1)
+	i = 0;
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if(!data->forks)
 	{
-		free(data->philo);
+		pthread_mutex_destroy(&data->death);
+		pthread_mutex_destroy(&data->print);
 		return (-1);
 	}
+	while(i < data->nb_philo)
+	{
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->forks[i]);
+			free(data->forks);
+			pthread_mutex_destroy(&data->death);
+			pthread_mutex_destroy(&data->print);
+			return (-1);
+		}
+		i++;
+	}
+	i = 0;
+	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!data->philo)
+	{
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+		pthread_mutex_destroy(&data->death);
+		pthread_mutex_destroy(&data->print);
+		free(data->forks);
+		return (-1);
+	}
+	init_philo(data, data->philo);
 	return (0);
 }
 

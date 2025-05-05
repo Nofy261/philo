@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/01 12:36:39 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:47:28 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int check_death(t_philo *philo)
 	pthread_mutex_lock(&philo->data->death);
 	if (current_time - philo->last_time_eaten >= philo->data->time_to_die)// > ??
 	{
-		philo->data->someone_died = 1;
 		philo->dead = 1;
 		print_info(philo, "died");
+		philo->data->someone_died = 1;
 		pthread_mutex_unlock(&philo->data->death);
 		return (-1);
 	}
@@ -73,11 +73,10 @@ int simulation(t_data *data)
 			i++;
 		}
 		ft_usleep(1);//?? a tester avec plusieurs valeurs
-		//ft_usleep(3); // test
 	}
 	// a rajouter si nb_eat est atteint
 	// si tout le monde a mangé le nombre de repas requis  
-	return (0);
+	// return (0);
 }
 
 
