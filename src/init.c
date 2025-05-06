@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/05 10:53:16 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:34:19 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	create_threads(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		philo[i].has_thread = 0; // a voir son utilité ailleurs
+		philo[i].has_thread = 0;
 		// stock l'id du thread si OK et renvoie 0 et renvoie != 0 si KO
 		if (pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]) != 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/05 13:47:28 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:33:15 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int all_ate_enough(t_data *data)
 
 int simulation(t_data *data)
 {
-	int i;
-
 	while (1)
 	{
 		pthread_mutex_lock(&data->death);
@@ -65,17 +63,8 @@ int simulation(t_data *data)
 		pthread_mutex_unlock(&data->death);
         if (all_ate_enough(data) == 1)
             return (0);
-		i = 0;
-		while(i < data->nb_philo)
-		{
-			if(check_death(&data->philo[i]) == -1)
-				return (-1);
-			i++;
-		}
-		ft_usleep(1);//?? a tester avec plusieurs valeurs
-	}
-	// a rajouter si nb_eat est atteint
-	// si tout le monde a mangé le nombre de repas requis  
+		ft_usleep(1);
+	} 
 	// return (0);
 }
 
