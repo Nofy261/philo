@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/06 10:18:52 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:50:02 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ typedef struct s_philo
 	long int 		last_time_eaten; // heure du dernier repas
 	int				meal_consumed;
 	int				id;
-	int				dead;
-	int 			finished;     // non utilisé
-	int 			has_thread;   // a voir son utilité
+	int 			has_thread;
 	pthread_t 		thread; // action de chaque philo
-	pthread_mutex_t	*fork_left; // modif pointeur
-	pthread_mutex_t	*fork_right; // modif en pointeur
-	
+	pthread_mutex_t	*fork_left;
+	pthread_mutex_t	*fork_right;
 	struct s_data	*data;
 }					t_philo;
 
@@ -57,7 +54,7 @@ int					check_death(t_philo *philo);
 int					simulation(t_data *data);
 
 // EAT.C
-void				eat(t_philo *philo);
+void				philo_eat(t_philo *philo);
 
 // INIT.C
 int					init_data(t_data *data, char **argv);
@@ -73,6 +70,7 @@ int					parse_args(char **argv);
 
 // ROUTINE_UTILS.C
 void				print_info(t_philo *philo, char *msg);
+// void 				print_info_2(t_philo *philo, char *msg); // test 
 
 // ROUTINE.C
 void				*routine(void *arg);

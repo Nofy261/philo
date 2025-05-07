@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/06 11:33:47 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:29:26 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void put_down_forks(t_philo *philo)
 	}
 }
 
-void	eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
 	long int	tmp;
 	
@@ -57,7 +57,10 @@ void	eat(t_philo *philo)
 	while (get_actual_time_in_ms() - tmp < philo->data->time_to_eat)
 	{
 		if (check_death(philo) == -1)
+		{
+			put_down_forks(philo);
 			return ;
+		}
 		usleep(100);
 	}
 	philo->last_time_eaten = get_actual_time_in_ms();

@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/06 11:33:15 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:58:42 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 // est mort quand il a depassé le temps limite sans manger
 int check_death(t_philo *philo)
 {
-	long int current_time;
+	long int tmp;
 
-	current_time = get_actual_time_in_ms();
-	pthread_mutex_lock(&philo->data->death);
-	if (current_time - philo->last_time_eaten >= philo->data->time_to_die)// > ??
+	tmp = get_actual_time_in_ms();
+	pthread_mutex_lock(&philo->data->death);//PB??
+	if (philo->data->someone_died)
 	{
-		philo->dead = 1;
+		pthread_mutex_unlock(&philo->data->death);// modif
+		return (-1);
+	}
+	if (tmp - philo->last_time_eaten > philo->data->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->data->death);
 		print_info(philo, "died");
 		philo->data->someone_died = 1;
-		pthread_mutex_unlock(&philo->data->death);
 		return (-1);
 	}
 	pthread_mutex_unlock(&philo->data->death);
@@ -63,12 +67,8 @@ int simulation(t_data *data)
 		pthread_mutex_unlock(&data->death);
         if (all_ate_enough(data) == 1)
             return (0);
-		ft_usleep(1);
-	} 
-	// return (0);
+		//ft_usleep(1);
+		usleep(1);
+	}
 }
-
-
-
-
 

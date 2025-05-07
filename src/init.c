@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/06 11:34:19 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/07 09:14:01 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void init_philo(t_data *data, t_philo *philo)
 		philo[i].last_time_eaten = data->start_time;
 		philo[i].meal_consumed = 0;
 		philo[i].id = i + 1;
-		philo[i].dead = 0;
-		philo[i].finished = 0;
-		philo[i].has_thread = 0;//
+		philo[i].has_thread = 0;
 		philo[i].data = data;
 		philo[i].fork_left = &data->forks[i];//fourchette du philo (la gauche)
 		philo[i].fork_right = &data->forks[(i + 1) % data->nb_philo];//fourchette droite de son voisin
@@ -32,25 +30,10 @@ void init_philo(t_data *data, t_philo *philo)
 	}	
 }
 
-// free a verifier
-int	init_data(t_data *data, char **argv)
+static int allocate_forks(t_data *data)
 {
 	int i;
-
-	data->nb_philo = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	data->start_time = get_actual_time_in_ms();
-	data->someone_died = 0;
-	if (argv[5])
-		data->nb_eat = ft_atoi(argv[5]);
-	else
-		data->nb_eat = 0;
-	if (pthread_mutex_init(&data->death, NULL) != 0)
-		return (-1);
-	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (-1); 
+	
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if(!data->forks)
@@ -72,6 +55,13 @@ int	init_data(t_data *data, char **argv)
 		}
 		i++;
 	}
+	return (0);
+}
+
+static int allocate_philo(t_data *data)
+{
+	int	i;
+	
 	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
@@ -86,10 +76,32 @@ int	init_data(t_data *data, char **argv)
 		free(data->forks);
 		return (-1);
 	}
-	init_philo(data, data->philo);
 	return (0);
 }
 
+int	init_data(t_data *data, char **argv)
+{
+	data->nb_philo = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->start_time = get_actual_time_in_ms();
+	data->someone_died = 0;
+	if (argv[5])
+		data->nb_eat = ft_atoi(argv[5]);
+	else
+		data->nb_eat = 0;
+	if (pthread_mutex_init(&data->death, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->print, NULL) != 0)
+		return (-1); 
+	if(allocate_forks(data) == -1)
+		return (-1);
+	if(allocate_philo(data) == -1)
+		return (-1);
+	init_philo(data, data->philo);
+	return (0);
+}
 
 int	create_threads(t_data *data, t_philo *philo)
 {

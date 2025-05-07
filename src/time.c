@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:30:05 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/01 11:42:36 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:04:38 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ long int get_timestamp(t_data *data)
 }
 
 // met le thread en pause pendant un temps donné tout en permettant au program de vérifier l'état du philo
-int	ft_usleep(size_t milliseconds)
-{
-	size_t	start;
+// int	ft_usleep(size_t milliseconds)
+// {
+// 	size_t	start;
 
-	start = get_actual_time_in_ms();// debut du moment ou le philo commence a manger
-	while ((get_actual_time_in_ms() - start) < milliseconds)
-		usleep(500); // 100?
-	return (0);
-}
+// 	start = get_actual_time_in_ms();// debut du moment ou le philo commence a manger
+// 	while ((get_actual_time_in_ms() - start) < milliseconds)
+// 		usleep(500); // 100?
+// 	return (0);
+// }
