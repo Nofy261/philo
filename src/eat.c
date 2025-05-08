@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 12:10:01 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:29:03 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ static void put_down_forks(t_philo *philo)
 	}
 }
 
-int	philo_eat(t_philo *philo)
+void 	philo_eat(t_philo *philo)
+//int	philo_eat(t_philo *philo)
 {
 	long int	tmp;
 	
 	if (check_death(philo) == -1)
-		return (-1);
+		//return (-1);
+		return ;
 	take_forks(philo);
 	print_info(philo, "is eating");
 	tmp = get_actual_time_in_ms();
@@ -58,7 +60,8 @@ int	philo_eat(t_philo *philo)
 		if (check_death(philo) == -1)
 		{
 			put_down_forks(philo);
-			return (-1) ;
+			//return (-1) ;
+			return ;
 		}
 		usleep(100);
 	}
@@ -69,6 +72,6 @@ int	philo_eat(t_philo *philo)
 	philo->meal_consumed++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 	put_down_forks(philo);
-	return (0);
+	//return (0);
 }
 

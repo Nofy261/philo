@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 12:01:12 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:31:54 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ int					check_death(t_philo *philo);
 int					simulation(t_data *data);
 
 // EAT.C
-int				philo_eat(t_philo *philo);
+//int				philo_eat(t_philo *philo); // a tester
+void				philo_eat(t_philo *philo);
+
 
 // INIT.C
 int					init_data(t_data *data, char **argv);

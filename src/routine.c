@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:13:41 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 12:01:34 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:29:35 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ static void philos_life(t_philo *philo)
 			return ;// tous ont mangé le nombre de repas requis
 		}
 		pthread_mutex_unlock(&philo->meal_mutex); 
-        if (philo_eat(philo) == -1)
-			return ;
+        // if (philo_eat(philo) == -1)
+		// 	return ;
+		philo_eat(philo); // return a recuper ??
         pthread_mutex_lock(&philo->data->death);
         if (philo->data->someone_died == 1)
         {
