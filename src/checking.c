@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/07 12:58:42 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:39:25 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ int check_death(t_philo *philo)
 	pthread_mutex_lock(&philo->data->death);//PB??
 	if (philo->data->someone_died)
 	{
-		pthread_mutex_unlock(&philo->data->death);// modif
+		pthread_mutex_unlock(&philo->data->death);
 		return (-1);
 	}
+	
+	pthread_mutex_lock(&philo->time_mutex); 
 	if (tmp - philo->last_time_eaten > philo->data->time_to_die)
 	{
+		pthread_mutex_unlock(&philo->time_mutex);
 		pthread_mutex_unlock(&philo->data->death);
 		print_info(philo, "died");
 		philo->data->someone_died = 1;
 		return (-1);
 	}
+	pthread_mutex_unlock(&philo->time_mutex);
 	pthread_mutex_unlock(&philo->data->death);
 	return (0);
 }
@@ -46,8 +50,13 @@ static int all_ate_enough(t_data *data)
     i = 0;
     while (i < data->nb_philo)
     {
+		pthread_mutex_lock(&data->philo[i].meal_mutex);
         if (data->philo[i].meal_consumed < data->nb_eat)
-            return (0);
+		{
+			pthread_mutex_unlock(&data->philo[i].meal_mutex);
+			return (0);
+		}
+		pthread_mutex_unlock(&data->philo[i].meal_mutex);
         i++;
     }
     return (1); // tous ont mangé le nombre de repas requis 

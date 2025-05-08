@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:33:35 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/06 10:31:52 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 08:48:15 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int main(int argc, char **argv)
 {
-    int		i;
     t_data	data;
     
     if (argc < 5 || argc > 6)
@@ -36,27 +35,10 @@ int main(int argc, char **argv)
         free(data.philo);
         return (1);
     }
-    i = 0;
-	while (i < data.nb_philo)// a voir
-    {
-		if (data.philo[i].has_thread)
-        	pthread_join(data.philo[i].thread, NULL);
-        i++;
-    }
-	// join = pour detruire les threads;
-	// destroy = mutex
-	// free  
-    pthread_mutex_destroy(&data.print);
-    pthread_mutex_destroy(&data.death);
-	i = 0;
-    while (i < data.nb_philo)
-    {
-        pthread_mutex_destroy(data.philo[i].fork_right);
-        pthread_mutex_destroy(data.philo[i].fork_left);
-		//pthread_mutex_destroy(&data.forks[i]); // ??
-        i++;
-    }
+	cleanup(&data);   
     free(data.philo);
-    return (0);   
+    return (0);
 }
+
+
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_utils.c                                    :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/07 09:44:10 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 08:48:58 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ void print_info(t_philo *philo, char *msg)
 		printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&philo->data->death);
 	pthread_mutex_unlock(&philo->data->print);
+}
+
+void cleanup(t_data *data)
+{
+	int i;
+	
+	i = 0;
+	while (i < data->nb_philo)
+    {
+		if (data->philo[i].has_thread == 1)
+        	pthread_join(data->philo[i].thread, NULL);
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philo[i].meal_mutex);
+		pthread_mutex_destroy(&data->philo[i].time_mutex);
+        i++;
+    }
+	pthread_mutex_destroy(&data->print);
+    pthread_mutex_destroy(&data->death);
 }

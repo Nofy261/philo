@@ -38,7 +38,7 @@ Voici les cas de test recommandés :
     ./philo 5 800 200 200 7 ✅  (avis sur visualizer❌) 
     ➜ Personne ne doit mourir, la simulation doit s’arrêter après que chaque philosophe ait mangé 7 fois.
 
-    ./philo 4 410 200 200  ❌ Marche une fois sur 4 (Ne donne pas le meme resultat avec helgrind)
+    ./philo 4 410 200 200  ❌ Marche une fois sur 2 (Ne donne pas le meme resultat avec helgrind)
     ➜ Personne ne doit mourir.
 
     ./philo 4 310 200 100 ✅    

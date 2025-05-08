@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/07 09:14:01 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:24:36 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void init_philo(t_data *data, t_philo *philo)
 		philo[i].data = data;
 		philo[i].fork_left = &data->forks[i];//fourchette du philo (la gauche)
 		philo[i].fork_right = &data->forks[(i + 1) % data->nb_philo];//fourchette droite de son voisin
+		pthread_mutex_init(&philo[i].time_mutex, NULL); // a voir si protection if 
+		pthread_mutex_init(&philo[i].meal_mutex, NULL);
 		i++;
 	}	
 }

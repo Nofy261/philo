@@ -6,13 +6,13 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:13:41 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/07 13:04:11 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:36:39 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void philo_sleep(t_philo *philo)
+static int philo_sleep_and_think(t_philo *philo)
 {
 	long int tmp;
 	
@@ -21,14 +21,14 @@ static void philo_sleep(t_philo *philo)
 	// get_actual_time_in_ms() - tmp = temps qui s'est ecoulé depuis le debut de sommeil
 	while (get_actual_time_in_ms() - tmp < philo->data->time_to_sleep) // tant que time_to_sleep n'est pas atteint, on attend
 	{
-		if (check_death(philo) == -1) // verifie s il n est pas mort pdt qu'il dort
-			return ;
+		if (check_death(philo) == -1)
+			return (-1);
 		usleep(100);
 	}
+	print_info(philo, "is thinking");
+	return (0);
 }
-
-
-// verifier le temps du dernier repas, comparer a la mort , si ce temps >= temps de mort , someone_died = 1 return 
+ 
 static void philos_life(t_philo *philo)
 {
 	while (1)
@@ -40,9 +40,13 @@ static void philos_life(t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(&philo->data->death);
-		
+		pthread_mutex_lock(&philo->meal_mutex);
         if (philo->data->nb_eat != 0 && philo->meal_consumed >= philo->data->nb_eat)
+		{
+			pthread_mutex_unlock(&philo->meal_mutex);
 			return ;// tous ont mangé le nombre de repas requis
+		}
+		pthread_mutex_unlock(&philo->meal_mutex); 
         philo_eat(philo);
         pthread_mutex_lock(&philo->data->death);
         if (philo->data->someone_died == 1)
@@ -51,8 +55,8 @@ static void philos_life(t_philo *philo)
             return ;
         }
         pthread_mutex_unlock(&philo->data->death);
-		philo_sleep(philo);
-        print_info(philo, "is thinking");
+		if (philo_sleep_and_think(philo) == -1)
+			return ;
     }
 }
 

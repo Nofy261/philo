@@ -6,7 +6,7 @@
 #    By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 16:59:13 by nolecler          #+#    #+#              #
-#    Updated: 2025/04/25 09:31:36 by nolecler         ###   ########.fr        #
+#    Updated: 2025/05/08 08:41:17 by nolecler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ FSRCS = src/checking.c \
 		src/routine.c \
 		src/time.c \
 		src/utils.c \
-		src/routine_utils.c \
+		src/philo_utils.c \
 
 OFILES = $(FSRCS:.c=.o)
 
