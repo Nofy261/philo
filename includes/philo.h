@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:37:12 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 10:41:29 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:01:12 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-//# include <string.h> // ??
 # include <sys/time.h>
 # include <unistd.h>
 
@@ -56,7 +55,7 @@ int					check_death(t_philo *philo);
 int					simulation(t_data *data);
 
 // EAT.C
-void				philo_eat(t_philo *philo);
+int				philo_eat(t_philo *philo);
 
 // INIT.C
 int					init_data(t_data *data, char **argv);
@@ -81,7 +80,7 @@ void				*routine(void *arg);
 // TIME.C
 long int			get_actual_time_in_ms(void);
 long int			get_timestamp(t_data *data);
-//int					ft_usleep(size_t ms, t_philo *philo);// A VOIR
+//int 				ft_usleep(size_t milliseconds);// A VOIR
 
 // UTILS.C
 int					ft_atoi(char *str);

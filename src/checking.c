@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 10:39:25 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:15:40 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int check_death(t_philo *philo)
 		pthread_mutex_unlock(&philo->data->death);
 		return (-1);
 	}
-	
+
 	pthread_mutex_lock(&philo->time_mutex); 
 	if (tmp - philo->last_time_eaten > philo->data->time_to_die)
 	{
 		pthread_mutex_unlock(&philo->time_mutex);
 		pthread_mutex_unlock(&philo->data->death);
 		print_info(philo, "died");
-		philo->data->someone_died = 1;
+		philo->data->someone_died = 1; // lock mutex death ici??
 		return (-1);
 	}
 	pthread_mutex_unlock(&philo->time_mutex);

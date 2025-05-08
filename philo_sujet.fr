@@ -27,12 +27,12 @@ Voici ce que tu dois vérifier dans le code :
     ⚠️ Ne pas dépasser 200 philosophes
     ⚠️ Ne pas utiliser time_to_die, time_to_eat, ou time_to_sleep en dessous de 60ms
 
-Voici les cas de test recommandés :
+Voici les cas de test recommandés : vphilo='valgrind --tool=helgrind --history-level=approx'
 
     ./philo 1 800 200 200  ✅
     ➜ Le philosophe ne doit pas manger et doit mourir.
 
-    ./philo 5 800 200 200  ✅ ⚠️ ⚠️ ⚠️ (SEGFAULT)
+    ./philo 5 800 200 200  ❌ ⚠️ ⚠️ ⚠️ (SEGFAULT) CTRL C ??
     ➜ Personne ne doit mourir.
 
     ./philo 5 800 200 200 7 ✅  (avis sur visualizer❌) 
