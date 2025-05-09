@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:52:19 by nolecler          #+#    #+#             */
-/*   Updated: 2025/04/25 09:34:29 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:18:57 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 void	ft_putstr_fd(char *str, int fd)
 {
 	int	i;

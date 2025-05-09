@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:33:35 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 08:48:15 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:02:08 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int argc, char **argv)
     }
     if (simulation(&data) == -1)
     {
+		cleanup(&data);
         free(data.philo);
         return (1);
     }

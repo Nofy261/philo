@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:13:41 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/08 12:29:35 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:04:36 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static int philo_sleep_and_think(t_philo *philo)
 	
 	print_info(philo, "is sleeping");
 	tmp = get_actual_time_in_ms();
-	// get_actual_time_in_ms() - tmp = temps qui s'est ecoulé depuis le debut de sommeil
-	while (get_actual_time_in_ms() - tmp < philo->data->time_to_sleep) // tant que time_to_sleep n'est pas atteint, on attend
+	while (get_actual_time_in_ms() - tmp < philo->data->time_to_sleep)
 	{
 		if (check_death(philo) == -1)
 			return (-1);
@@ -34,7 +33,7 @@ static void philos_life(t_philo *philo)
 	while (1)
     {
 		pthread_mutex_lock(&philo->data->death);
-		if (philo->data->someone_died == 1)	
+		if (philo->data->stop_sim == 1)	
 		{
 			pthread_mutex_unlock(&philo->data->death);
 			return ;
@@ -47,11 +46,10 @@ static void philos_life(t_philo *philo)
 			return ;// tous ont mangé le nombre de repas requis
 		}
 		pthread_mutex_unlock(&philo->meal_mutex); 
-        // if (philo_eat(philo) == -1)
-		// 	return ;
-		philo_eat(philo); // return a recuper ??
+        if (!philo_eat(philo))
+			return ;
         pthread_mutex_lock(&philo->data->death);
-        if (philo->data->someone_died == 1)
+        if (philo->data->stop_sim == 1)
         {
             pthread_mutex_unlock(&philo->data->death);
             return ;
@@ -69,14 +67,13 @@ void *routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->data->nb_philo == 1)
     {
-        pthread_mutex_lock(philo->fork_right);
+        pthread_mutex_lock(&philo->right_fork->fork_mutex);
         print_info(philo, "has taken a fork");
-        //ft_usleep(philo->data->time_to_die);
-		usleep(philo->data->time_to_die * 1000); // modif
+		usleep(philo->data->time_to_die * 1000);
         print_info(philo, "died");
-        pthread_mutex_unlock(philo->fork_right);
+        pthread_mutex_unlock(&philo->right_fork->fork_mutex);
         pthread_mutex_lock(&philo->data->death);
-        philo->data->someone_died = 1;
+        philo->data->stop_sim = 1;
         pthread_mutex_unlock(&philo->data->death);
     }
 	else
