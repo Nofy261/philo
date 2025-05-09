@@ -6,7 +6,7 @@
 #    By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 16:59:13 by nolecler          #+#    #+#              #
-#    Updated: 2025/05/08 08:41:17 by nolecler         ###   ########.fr        #
+#    Updated: 2025/05/09 11:36:35 by nolecler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ FSRCS = src/checking.c \
 		src/eat.c \
 		src/init.c \
 		src/main.c \
-		src/parsing_utils.c \
 		src/parsing.c \
 		src/routine.c \
 		src/time.c \

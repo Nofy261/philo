@@ -6,12 +6,11 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/09 11:10:55 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:37:11 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 static void	take_forks(t_philo *philo)
 {
@@ -31,28 +30,38 @@ static void	take_forks(t_philo *philo)
 	}
 }
 
-
-int 	philo_eat(t_philo *philo)
+static void	put_down_forks(t_philo *philo)
 {
-	long int	tmp;
-	
+	pthread_mutex_unlock(&philo->left_fork->fork_mutex);
+	pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+}
+
+static int	check_and_take_forks(t_philo *philo)
+{
 	if (check_death(philo) == -1)
 		return (0);
 	take_forks(philo);
 	if (check_death(philo) == -1)
-    {
-		pthread_mutex_unlock(&philo->left_fork->fork_mutex);
-		pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+	{
+		put_down_forks(philo);
 		return (0);
-    }
+	}
 	print_info(philo, "is eating");
+	return (1);
+}
+
+int	philo_eat(t_philo *philo)
+{
+	long int	tmp;
+
+	if (check_and_take_forks(philo) == 0)
+		return (0);
 	tmp = get_actual_time_in_ms();
 	while (get_actual_time_in_ms() - tmp < philo->data->time_to_eat)
 	{
 		if (check_death(philo) == -1)
 		{
-			pthread_mutex_unlock(&philo->left_fork->fork_mutex);
-			pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+			put_down_forks(philo);
 			return (0);
 		}
 		usleep(100);
@@ -63,8 +72,6 @@ int 	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->meal_consumed++;
 	pthread_mutex_unlock(&philo->meal_mutex);
-	pthread_mutex_unlock(&philo->left_fork->fork_mutex);
-	pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+	put_down_forks(philo);
 	return (1);
 }
-

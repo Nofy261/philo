@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:52:19 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/09 11:18:57 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:38:51 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,4 @@ void	ft_putstr_fd(char *str, int fd)
 		write(fd, &str[i], 1);
 		i++;
 	}
-}
-
-void	print_error(char *msg)
-{
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
 }

@@ -6,15 +6,15 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:43:36 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/09 11:20:29 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:37:49 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void init_philo(t_data *data, t_philo *philo)
+void	init_philo(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->nb_philo)
@@ -24,21 +24,21 @@ void init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i + 1;
 		philo[i].has_thread = 0;
 		philo[i].data = data;
-		philo[i].left_fork = &data->forks[i];//fourchette du philo (la gauche)
-		philo[i].right_fork = &data->forks[(i + 1) % data->nb_philo];//fourchette droite de son voisin
-		pthread_mutex_init(&philo[i].time_mutex, NULL); // a voir si protection if 
+		philo[i].left_fork = &data->forks[i];
+		philo[i].right_fork = &data->forks[(i + 1) % data->nb_philo];
+		pthread_mutex_init(&philo[i].time_mutex, NULL);
 		pthread_mutex_init(&philo[i].meal_mutex, NULL);
 		i++;
-	}	
+	}
 }
 
-static int allocate_forks(t_data *data)
+static int	allocate_forks(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->forks = malloc(sizeof(t_fork) * data->nb_philo);
-	if(!data->forks)
+	if (!data->forks)
 	{
 		pthread_mutex_destroy(&data->death);
 		pthread_mutex_destroy(&data->print);
@@ -47,16 +47,16 @@ static int allocate_forks(t_data *data)
 	while (i < data->nb_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i].fork_mutex, NULL) != 0)
-			return (-1); // detruire ce qui a déja été init
+			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-static int allocate_philo(t_data *data)
+static int	allocate_philo(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
@@ -68,7 +68,6 @@ static int allocate_philo(t_data *data)
 	}
 	return (0);
 }
-
 
 int	init_data(t_data *data, char **argv)
 {
@@ -85,10 +84,10 @@ int	init_data(t_data *data, char **argv)
 	if (pthread_mutex_init(&data->death, NULL) != 0)
 		return (-1);
 	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (-1); 
-	if(allocate_forks(data) == -1)
 		return (-1);
-	if(allocate_philo(data) == -1)
+	if (allocate_forks(data) == -1)
+		return (-1);
+	if (allocate_philo(data) == -1)
 		return (-1);
 	init_philo(data, data->philo);
 	return (0);
@@ -96,13 +95,14 @@ int	init_data(t_data *data, char **argv)
 
 int	create_threads(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->nb_philo)
 	{
 		philo[i].has_thread = 0;
-		if (pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]) != 0)
+		if (pthread_create(&philo[i].thread, NULL, (void *)routine,
+				&philo[i]) != 0)
 		{
 			print_error("Error: thread creation failed");
 			return (-1);
