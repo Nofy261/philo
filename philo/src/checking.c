@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:42:52 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/12 17:23:52 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/13 08:27:31 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int	simulation(t_data *data)
 			pthread_mutex_unlock(&data->death);
 		}
 		usleep(1);
+		//usleep(500);
 	}
 }

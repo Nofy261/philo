@@ -6,7 +6,7 @@
 /*   By: nolecler <nolecler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:37:21 by nolecler          #+#    #+#             */
-/*   Updated: 2025/05/12 17:24:07 by nolecler         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:05:19 by nolecler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	take_forks(t_philo *philo)
 {
+	if (philo->id % 2 == 0) 
+    	usleep(500);
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->left_fork->fork_mutex);
